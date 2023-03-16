@@ -1,4 +1,4 @@
-"""mysite URL Configuration
+"""loginsystem URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,13 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-
-admin.site.site_header = "ankit ecommerce"
-admin.site.index_title = "Welcome to ankit ecommerce"
-admin.site.site_title = "ankit ecommerce"
+from django.urls import path
+from system import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls','system.urls'))
+    path('signup/',views.signup,name='signup_page'),
+    path('login/',views.login_user,name='loginpage'),
+    path('home/',views.home,name='homepage'),
+    path('logout/',views.logout_page,name="logoutpage")
 ]
