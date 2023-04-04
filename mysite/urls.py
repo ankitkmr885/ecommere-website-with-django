@@ -22,5 +22,7 @@ admin.site.site_title = "ankit ecommerce"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('home.urls','system.urls'))
+    path('', include('home.urls')),
+    path('login/',include('system.urls'))
+  
 ]

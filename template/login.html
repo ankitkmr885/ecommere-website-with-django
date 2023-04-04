@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block title %} login {% endblock title %}
+
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -9,9 +13,9 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 
-</head>
-
-<body>
+</head> -->
+{% block body %} <!-- added manually -->
+<!-- <body> -->
     <section class="vh-100" style="background-color: #9A616D;">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -24,7 +28,7 @@
                   </div>
                   <div class="col-md-6 col-lg-7 d-flex align-items-center">
                     <div class="card-body p-4 p-lg-5 text-black">
-                      <div>
+                      <!-- <div>
                         {% if messages %}
                         {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}-dismissible fade show my-0" role="alert">
@@ -33,7 +37,7 @@
                         </div>
                         {% endfor %}
                         {% endif %}
-                      </div>
+                      </div> -->
       
                       <form action="/login/" method="POST">
                        
@@ -60,8 +64,8 @@
                           <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
                         </div>
       
-                        <a class="small text-muted" href="#!">Forgot password?</a>
-                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="http://127.0.0.1:8000"
+                        <a class="small text-muted" href="{% url 'forget_page' %}">Forgot password?</a>
+                        <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="{% url 'signup_page' %}"
                             style="color: #393f81;">Register here</a></p>
                         <a href="#!" class="small text-muted">Terms of use.</a>
                         <a href="#!" class="small text-muted">Privacy policy</a>
@@ -77,6 +81,7 @@
       </section>
     
 
-</body>
+<!-- </body>
 
-</html>
+</html> -->
+{% endblock body %} <!-- added manually -->

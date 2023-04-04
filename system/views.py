@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 @login_required(login_url="login")
 def home(request):
-    return HttpResponse("this is homepage")
+    return (render(request, 'home.html'))
 
 def signup(request):
     if request.method == "POST":
@@ -64,7 +64,7 @@ def login_user(request):
             return (render(request, 'home.html'))
         else:
             messages.error(request,"invalid credentials,please try again")
-            return redirect("homepage")
+            return redirect("loginpage")
 
     return (render(request, 'login.html'))
 
@@ -73,3 +73,11 @@ def logout_page(request):
     logout(request)
     messages.success(request, "sucessfully logout")
     return redirect('loginpage')
+
+# forget function
+def forget(request):
+    return (render(request, 'forgetpass.html'))
+
+# change pass for forget function
+def changepass(request):
+    return render(request, 'changepass.html')
