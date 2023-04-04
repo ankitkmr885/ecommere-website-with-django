@@ -9,7 +9,7 @@
     
     {
     "src": "build_files.sh",
-    "use": "@versal/static-build",
+    "use": "@versal/static-build", @versal/python, @versal/static-build
     "config": {
     "distDir": "staticfiles_build"
     }
