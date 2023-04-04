@@ -1,0 +1,29 @@
+{
+    "version": 2,
+    "builds": [
+    {
+    "src": "mysite/wsgi.py",
+    "use": "@versal/python",
+    "config": { "maxlambdasize": "15mb", "runtime": "python3.9"}
+    },
+    
+    {
+    "src": "build_files.sh",
+    "use": "@versal/static-build",
+    "config": {
+    "distDir": "staticfiles_build"
+    }
+    }
+    ],
+    "routes": [
+    {
+    "src": "/static/(.*)",
+    "dest": "/static/$1"
+
+    },
+    {
+    "src": "/(.*)",
+    "dest": "mysite/wsgi.py"
+    }
+    ]
+}
