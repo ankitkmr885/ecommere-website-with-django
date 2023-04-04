@@ -3,13 +3,13 @@
     "builds": [
     {
     "src": "mysite/wsgi.py",
-    "use": "@versal/python",
+    "use": "@vercel/python",
     "config": { "maxlambdasize": "15mb", "runtime": "python3.9"}
     },
     
     {
     "src": "build_files.sh",
-    "use": "@versal/static-build", @versal/python, @versal/static-build
+    "use": "@vercel/static-build",
     "config": {
     "distDir": "staticfiles_build"
     }
