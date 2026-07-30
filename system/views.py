@@ -79,8 +79,6 @@ def login_user(request):
 
                 request.session["cart"] = {}
 
-            if cart or CartItem.objects.filter(user=user).exists():
-                return redirect("cart")
             return redirect("home")
         else:
             messages.error(request, "invalid credentials,please try again")
