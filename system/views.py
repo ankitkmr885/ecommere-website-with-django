@@ -1,14 +1,15 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
-from system.models import signup
 from django.contrib.auth.decorators import login_required
-# Create your views here.
-@login_required(login_url="login")
+
+from home.models import CartItem
+
+
+@login_required(login_url="loginpage")
 def home(request):
-    return (render(request, 'home.html'))
+    return render(request, 'home.html')
 
 def signup(request):
     if request.method == "POST":
@@ -52,21 +53,40 @@ def signup(request):
 
 def login_user(request):
     if request.method == "POST":
-        # get the post parameter
-        username= request.POST["loginusername"]
-        password= request.POST["loginpassword"]
-        # aunthenticate valid user
-        user = authenticate(username=username,password=password)
-        # if user id and password are entered wrong by client
+        username = request.POST.get("loginusername")
+        password = request.POST.get("loginpassword")
+        user = authenticate(username=username, password=password)
+
         if user is not None:
             login(request, user)
-           
-            return (render(request, 'home.html'))
+
+            cart = request.session.get("cart", {})
+            if cart:
+                for product_id, quantity in cart.items():
+                    product = None
+                    try:
+                        from home.models import Product
+                        product = Product.objects.get(pk=int(product_id))
+                    except (ValueError, Product.DoesNotExist):
+                        continue
+
+                    item, created = CartItem.objects.get_or_create(user=user, product=product)
+                    if not created:
+                        item.quantity += int(quantity)
+                    else:
+                        item.quantity = int(quantity)
+                    item.save()
+
+                request.session["cart"] = {}
+
+            if cart or CartItem.objects.filter(user=user).exists():
+                return redirect("cart")
+            return redirect("home")
         else:
-            messages.error(request,"invalid credentials,please try again")
+            messages.error(request, "invalid credentials,please try again")
             return redirect("loginpage")
 
-    return (render(request, 'login.html'))
+    return render(request, "login.html")
 
     # logout function
 def logout_page(request):
